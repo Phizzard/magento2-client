@@ -4,7 +4,7 @@
 
 const http = require('http');
 const https = require('https');
-f
+
 const DEFAULT_PORT = 80;
 const DEFAULT_VERSION = 'V1'
 
@@ -60,7 +60,7 @@ Magento2.prototype.init = function(baseUrl, adminUsername, adminPassword, option
 	if (location.protocol !== 'https') {
 		console.log("WARNING! live Magento installs should have https protocol");
 	}
-	
+
 	this.params = {
 		baseUrl: baseUrl,
 		protocol: (location.protocol == 'https' ? https : http),
@@ -73,7 +73,7 @@ Magento2.prototype.init = function(baseUrl, adminUsername, adminPassword, option
 		version: options.version || DEFAULT_VERSION,
 		rejectUnauthorized: options.rejectUnauthorized && true
 	};
-	
+
 	if (!this.params.rejectUnauthorized) {
 	console.log("WARNING! Options sent are allowing for SSL communication using self signed certificates");
 	}
@@ -120,7 +120,7 @@ Magento2.prototype.request = function(method, url, urlParams, data, callback) {
 		console.log('WARNING! data parameter was passed as a string but a JSON object was expected.	Attempting to convert to JSON');
 		data = JSON.parse(data);
 	}
-	
+
 	totalUrl += url;
 
 	if (urlParamString.length > 0) {
@@ -135,7 +135,7 @@ Magento2.prototype.request = function(method, url, urlParams, data, callback) {
 			this.request(method, url, urlParams, data, callback);
 		});
 	}
-	
+
 	let req;
 
 	if (callback) {
@@ -154,7 +154,7 @@ Magento2.prototype.request = function(method, url, urlParams, data, callback) {
 				}
 			};
 
-			req = self.params.protocol.request(options, 
+			req = self.params.protocol.request(options,
 				function(res) {
 					let response = '';
 					res.on('data', function (chunk) {
