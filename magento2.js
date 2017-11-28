@@ -6,7 +6,8 @@ const http = require('http');
 const https = require('https');
 
 const DEFAULT_PORT = 80;
-const DEFAULT_VERSION = 'V1'
+const DEFAULT_VERSION = 'V1',
+const DEAFULT_IS_CUSTOMER = false
 
 /**
  * getLocation
@@ -69,9 +70,10 @@ Magento2.prototype.init = function(baseUrl, adminUsername, adminPassword, option
 		port: options.port || DEFAULT_PORT,
 		adminUsername: adminUsername,
 		adminPassword: adminPassword,
-		token: '',
+		token: options.token || '',
 		version: options.version || DEFAULT_VERSION,
-		rejectUnauthorized: options.rejectUnauthorized && true
+		rejectUnauthorized: options.rejectUnauthorized && true,
+		isCustomer: options.isCustomer || DEFAULT_IS_CUSTOMER
 	};
 
 	if (!this.params.rejectUnauthorized) {
@@ -281,7 +283,7 @@ Magento2.prototype.getTokenCallback = function(callback) {
 	else {
 		let options = {
 			host: self.params.host,
-			path: self.params.path + '/rest/' + self.params.version + '/integration/admin/token',
+			path: self.params.path + '/rest/' + self.params.version + self.params.isCustomer ? '/integration/customer/token' : '/integration/admin/token',
 			method: 'POST',
 			rejectUnauthorized: self.params.rejectUnauthorized,
 			headers: {
@@ -333,7 +335,7 @@ Magento2.prototype.getTokenPromise = function() {
 		else {
 			let options = {
 				host: self.params.host,
-				path: self.params.path + '/rest/' + self.params.version + '/integration/admin/token',
+				path: self.params.path + '/rest/' + self.params.version + self.params.isCustomer ? '/integration/customer/token' : '/integration/admin/token',
 				method: 'POST',
 				rejectUnauthorized: self.params.rejectUnauthorized,
 				headers: {
