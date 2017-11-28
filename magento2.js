@@ -281,9 +281,10 @@ Magento2.prototype.getTokenCallback = function(callback) {
 		callback(null);
 	}
 	else {
+		const tokenUrl = self.params.isCustomer ? '/integration/customer/token' : '/integration/admin/token';
 		let options = {
 			host: self.params.host,
-			path: self.params.path + '/rest/' + self.params.version + self.params.isCustomer ? '/integration/customer/token' : '/integration/admin/token',
+			path: self.params.path + '/rest/' + self.params.version + tokenUrl,
 			method: 'POST',
 			rejectUnauthorized: self.params.rejectUnauthorized,
 			headers: {
@@ -333,9 +334,10 @@ Magento2.prototype.getTokenPromise = function() {
 			resolve();
 		}
 		else {
+			const tokenUrl = self.params.isCustomer ? '/integration/customer/token' : '/integration/admin/token';
 			let options = {
 				host: self.params.host,
-				path: self.params.path + '/rest/' + self.params.version + self.params.isCustomer ? '/integration/customer/token' : '/integration/admin/token',
+				path: self.params.path + '/rest/' + self.params.version + tokenUrl,
 				method: 'POST',
 				rejectUnauthorized: self.params.rejectUnauthorized,
 				headers: {
