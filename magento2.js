@@ -7,7 +7,7 @@ const https = require('https');
 
 const DEFAULT_PORT = 80;
 const DEFAULT_VERSION = 'V1';
-const DEAFULT_IS_CUSTOMER = false;
+const DEFAULT_IS_CUSTOMER = false;
 
 /**
  * getLocation
